@@ -89,9 +89,11 @@ board_t prog_move(board_t board, bool is_gamemode_X){
     // srand(static_cast<unsigned int>(time(0)));
     int row = (rand() % 3);
     int col = (rand() % 3);
-    std::cout << row << "   " << col << std::endl;
+    // std::cout << row << "   " << col << std::endl;
     char temp = board.A[col][row];
     if (temp == '-'){
+        std::cout << "My move:" << std::endl;
+        std::cout << row << " " << col << std::endl;
         if (!is_gamemode_X){
             board.A[col][row] = 'X';
         }
