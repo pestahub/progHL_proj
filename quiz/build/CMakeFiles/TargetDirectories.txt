@@ -1,0 +1,3 @@
+/home/pesta/ProgHL/quiz/build/CMakeFiles/rebuild_cache.dir
+/home/pesta/ProgHL/quiz/build/CMakeFiles/main.dir
+/home/pesta/ProgHL/quiz/build/CMakeFiles/edit_cache.dir

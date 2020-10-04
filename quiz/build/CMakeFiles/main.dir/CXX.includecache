@@ -1,0 +1,20 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/pesta/ProgHL/quiz/main.cpp
+iostream
+-
+vector
+-
+stdio.h
+-
+string
+-
+cstdlib
+-
+
