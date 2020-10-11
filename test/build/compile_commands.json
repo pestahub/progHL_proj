@@ -1,0 +1,7 @@
+[
+{
+  "directory": "/home/pesta/progHL_proj/test/build",
+  "command": "/usr/bin/g++-7    -g   -o CMakeFiles/main.dir/main.cpp.o -c /home/pesta/progHL_proj/test/main.cpp",
+  "file": "/home/pesta/progHL_proj/test/main.cpp"
+}
+]

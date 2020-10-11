@@ -1,0 +1,26 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/pesta/progHL_proj/tictactoe_LAN/test_.cpp
+iostream
+-
+sys/types.h
+-
+unistd.h
+-
+sys/socket.h
+-
+netdb.h
+-
+string.h
+-
+string
+-
+arpa/inet.h
+-
+
