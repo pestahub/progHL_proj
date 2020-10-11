@@ -1,22 +1,13 @@
-/* 
-The 4th assignment of programming in a high level language
-
-Console application - game tic tac toe.
-
-Principle of operation:
-    // The game board is created. 
-    // The user chooses who he wants to play for (X or 0)
-    // Human move
-    // Program move (random)
-    // The end
-    Debag
-    Smart proram move
-*/
-
 #include <iostream>
 #include <cstdlib> 
 #include <ctime>
-
+#include <sys/types.h>
+#include <unistd.h>
+#include <sys/socket.h>
+#include <netdb.h>
+#include <arpa/inet.h>
+#include <string.h>
+#include <string>
 
 struct board_t {
     char A[3][3];
@@ -228,42 +219,142 @@ int find_winner(board_t board){
     return -1;
 }
 
+void board2buf(char (&buf)[4096], board_t board){
+    for (int i = 0; i < 3; i++){
+        for(int j = 0; j < 3; j++){
+            // MB wrong 
+            buf[i*3+j] = board.A[i][j]; 
+        }
+    }
+
+}
+
+board_t buf2board(char (&buf)[4096]){
+    board_t board;
+    for (int i = 0; i < 3; i++){
+        for(int j = 0; j < 3; j++){
+            // MB wrong 
+            board.A[i][j] = buf[i*3+j];
+        }
+    }
+    return board;
+}
+
 int main(int argc, char const *argv[])
 {
+      // Создание доски и начало игры для LAN версии первых ходит всегда клиент, тестовая проверка на победителя
     bool end = false;
-    bool pr_move = false;
-    bool hum_move = false;
+    bool pr_move = false; 
+    bool hum_move = true;
+    bool choice = true;
     board_t board = create_board();
     print_board(board);
-    bool choice = user_choice();
-    if (choice){
-        hum_move = true;
-    }
-    else {
-        pr_move = true;
-    }
-    
     int win = find_winner(board);
     int win_help = win;
-    while (!end){
-        if (hum_move){
-            board = human_move(board, choice);
-            hum_move = false;
-            pr_move = true;
-        }
-        else if (pr_move){
-            board = prog_move(board, choice);
-            pr_move = false;
-            hum_move = true;
-        }
+
+
+
+
+
+
+
+
+
+    //	Create a socket
+    int sock = socket(AF_INET, SOCK_STREAM, 0);
+    if (sock == -1)
+    {
+        std::cerr << "Can't create a socket";
+        return 1;
+    }
+
+    //	Create a hint structure for the server we're connecting with
+    int port = 54000;
+    std::string ipAddress = "127.0.0.1";
+
+    sockaddr_in hint;
+    hint.sin_family = AF_INET;
+    hint.sin_port = htons(port);
+    inet_pton(AF_INET, ipAddress.c_str(), &hint.sin_addr);
+
+    //	Connect to the server on the socket
+    int connectRes = connect(sock, (sockaddr*)&hint, sizeof(hint));
+    if (connectRes == -1)
+    {
+        std::cerr << "Can't connect a socket";
+        return 1;
+    }
+
+    //	While loop:
+    char buf[4096];
+    std::string userInput;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    do {
+        //		Enter lines of text
+        std::cout << "Client move: " << std::endl;
+        board = prog_move(board, !choice);
         print_board(board);
+        memset(buf, 0, 4096);
+        board2buf(buf, board);
+
+
+        //		Send to server
+        int sendRes = send(sock, buf, 10, 0);
+        if (sendRes == -1)
+        {
+            std::cout << "Could not send to server! Whoops!\r\n";
+            continue;
+        }
+
+        //		Wait for response
+        memset(buf, 0, 4096);
+        int bytesReceived = recv(sock, buf, 4096, 0);
+        if (bytesReceived == -1)
+        {
+            std::cout << "There was an error getting response from server\r\n";
+        }
+        else
+        {
+            std::cout << "Server move: " << std::endl;
+            board = buf2board(buf);
+            print_board(board); 
+
+        }
         
         int win = find_winner(board);
         win_help = win;
         if (win != -1){
-            end = true;
+            break;
         }
-    }
+
+
+    } while(true);
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     if (win_help == 2){
         std::cout << "Draw!" << std::endl;
@@ -275,6 +366,10 @@ int main(int argc, char const *argv[])
     else {
         std::cout << "You lose!!!" << std::endl;
     }
+    
+    //	Close the socket
+    close(sock);
+
 
     return 0;
 }

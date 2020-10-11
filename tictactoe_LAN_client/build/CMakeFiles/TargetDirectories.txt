@@ -1,0 +1,3 @@
+/home/pesta/progHL_proj/tictactoe_LAN_client/build/CMakeFiles/rebuild_cache.dir
+/home/pesta/progHL_proj/tictactoe_LAN_client/build/CMakeFiles/main.dir
+/home/pesta/progHL_proj/tictactoe_LAN_client/build/CMakeFiles/edit_cache.dir

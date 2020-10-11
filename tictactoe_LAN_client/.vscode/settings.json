@@ -1,8 +1,9 @@
 {
     "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools",
     "files.associations": {
+        "ctime": "cpp",
+        "string": "cpp",
         "iostream": "cpp",
-        "ostream": "cpp",
         "cctype": "cpp",
         "clocale": "cpp",
         "cmath": "cpp",
@@ -10,7 +11,6 @@
         "cstddef": "cpp",
         "cstdio": "cpp",
         "cstdlib": "cpp",
-        "ctime": "cpp",
         "cwchar": "cpp",
         "cwctype": "cpp",
         "array": "cpp",
@@ -28,6 +28,7 @@
         "istream": "cpp",
         "limits": "cpp",
         "new": "cpp",
+        "ostream": "cpp",
         "numeric": "cpp",
         "sstream": "cpp",
         "stdexcept": "cpp",
@@ -43,7 +44,6 @@
         "memory_resource": "cpp",
         "optional": "cpp",
         "random": "cpp",
-        "string": "cpp",
         "string_view": "cpp"
     }
 }

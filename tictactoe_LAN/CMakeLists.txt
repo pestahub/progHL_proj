@@ -2,4 +2,4 @@ cmake_minimum_required( VERSION 3.4.0 )
 
 project(test)
 
-add_executable(test_ test_.cpp)
+add_executable(main main.cpp)
